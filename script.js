@@ -3,6 +3,13 @@ var uniqueTeams=[];
 var teamWins=[];
 var teamDraws=[];
 var teamLosses=[];
+var homeGoals=[];
+var awayGoals=[];
+var concededGoals=[];
+var yellowCards=[];
+var redCards=[];
+var corners=[];
+
 var WLD=[];
 var dataGlobal;
 d3.csv(dataPath)
@@ -17,6 +24,12 @@ d3.csv(dataPath)
         getTeamWins();
         getTeamDraws();
         getTeamLosses();
+        getHomeGoals();
+        getAwayGoals();
+        getConcededGoals();
+        getYellowCards();
+        getRedCards();
+        getCorners();
         sort();
     })
 
@@ -34,10 +47,6 @@ function getTeamWins(){
         });
         teamWins.push(wins)
     }
-    for (var i = 0; i < uniqueTeams.length; i++) {
-        //console.log(uniqueTeams[i]+" won "+ teamWins[i]+" games.");
-    }
-
 }
 function getTeamDraws(){
     for (var i = 0; i < uniqueTeams.length; i++) {
@@ -53,10 +62,6 @@ function getTeamDraws(){
         });
         teamDraws.push(draws)
     }
-    for (var i = 0; i < uniqueTeams.length; i++) {
-        //console.log(uniqueTeams[i]+" won "+ teamWins[i]+" games.");
-    }
-
 }
 function getTeamLosses(){
     for (var i = 0; i < uniqueTeams.length; i++) {
@@ -72,19 +77,107 @@ function getTeamLosses(){
         });
         teamLosses.push(losses)
     }
+}
+function getHomeGoals(){
     for (var i = 0; i < uniqueTeams.length; i++) {
-        //console.log(uniqueTeams[i]+" won "+ teamWins[i]+" games.");
-    }
+        var hg =0;
 
+        dataGlobal.forEach(function(d) {
+            if(uniqueTeams[i]==d["HomeTeam"]){
+                hg=hg+parseInt(d["FTHG"]);
+            }
+        });
+        homeGoals.push(hg)
+    }
+}
+function getAwayGoals(){
+    for (var i = 0; i < uniqueTeams.length; i++) {
+        var ag =0;
+
+        dataGlobal.forEach(function(d) {
+            if(uniqueTeams[i]==d["AwayTeam"]){
+                ag=ag+parseInt(d["FTAG"]);
+            }
+        });
+        awayGoals.push(ag)
+    }
+}
+function getConcededGoals(){
+    for (var i = 0; i < uniqueTeams.length; i++) {
+        var cg =0;
+
+        dataGlobal.forEach(function(d) {
+            if(uniqueTeams[i]==d["AwayTeam"]){
+                cg=cg+parseInt(d["FTHG"]);
+            }
+            if(uniqueTeams[i]==d["HomeTeam"]){
+                cg=cg+parseInt(d["FTAG"]);
+            }
+        });
+        concededGoals.push(cg)
+    }
+}
+function getYellowCards(){
+    for (var i = 0; i < uniqueTeams.length; i++) {
+        var yc =0;
+
+        dataGlobal.forEach(function(d) {
+            if(uniqueTeams[i]==d["AwayTeam"]){
+                yc=yc+parseInt(d["AY"]);
+            }
+            if(uniqueTeams[i]==d["HomeTeam"]){
+                yc=yc+parseInt(d["HY"]);
+            }
+        });
+        yellowCards.push(yc)
+    }
+}
+function getRedCards(){
+    for (var i = 0; i < uniqueTeams.length; i++) {
+        var rc =0;
+
+        dataGlobal.forEach(function(d) {
+            if(uniqueTeams[i]==d["AwayTeam"]){
+                rc=rc+parseInt(d["AR"]);
+            }
+            if(uniqueTeams[i]==d["HomeTeam"]){
+                rc=rc+parseInt(d["HR"]);
+            }
+        });
+        redCards.push(rc)
+    }
+}
+function getCorners(){
+    for (var i = 0; i < uniqueTeams.length; i++) {
+        var crn =0;
+
+        dataGlobal.forEach(function(d) {
+            if(uniqueTeams[i]==d["AwayTeam"]){
+                crn=crn+parseInt(d["AR"]);
+            }
+            if(uniqueTeams[i]==d["HomeTeam"]){
+                crn=crn+parseInt(d["HR"]);
+            }
+        });
+        corners.push(crn)
+    }
 }
 function sort() {
     for (var j = 0; j < uniqueTeams.length; j++)
-        WLD.push({'name': uniqueTeams[j], 'wins': teamWins[j], 'draws': teamDraws[j], 'losses': teamLosses[j], 'points' :teamWins[j]*3+teamDraws[j]});
+        WLD.push({'name': uniqueTeams[j], 'wins': teamWins[j], 'draws': teamDraws[j], 'losses': teamLosses[j],
+            'total_goals':homeGoals[j]+awayGoals[j],'home_goals':homeGoals[j],'away_goals':awayGoals[j],
+            'conceded_goals':concededGoals[j], 'goal_difference': homeGoals[j]+awayGoals[j]-concededGoals[j] ,
+            'yellow_cards': yellowCards[j],'rec_cards':redCards[j], 'booking_pts':yellowCards[j]*10+redCards[j]*25,
+            'corners':corners[j],'points' :teamWins[j]*3+teamDraws[j]});
 
-//2) sort:
+
     WLD.sort(function(a, b) {
-        return ((a.points > b.points) ? -1 : ((a.points == b.points) ? 0 : 1));
-
+        if(a.points!=b.points) {
+            return ((a.points > b.points) ? -1 : ((a.points == b.points) ? 0 : 1));
+        }
+        else{
+            return ((a.goal_difference > b.goal_difference) ? -1 : ((a.goal_difference == b.goal_difference) ? 0 : 1));
+        }
     });
 console.log(WLD);
 }
