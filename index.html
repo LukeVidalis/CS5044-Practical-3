@@ -98,7 +98,15 @@
 						.enter()
 						.append("a")
 						.attr("xlink:href", function (d,i) {
-							return "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/team.html?id="+i
+							if(i<5)
+								return "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/team.html?id="+i
+							else if(i>4&&i<=9)
+								return "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/team.html?id="+parseInt(10-i%5-1)
+							else if(i>9&&i<=14)
+								return "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/team.html?id="+i
+							else
+								return "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/team.html?id="+parseInt(20-i%5-1)
+
 						})
 						.append("svg:image")
 							.attr('width', 80)
