@@ -1,9 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>CS5044 Practical 3</title>
-</head>
-<body>
-</body>
+
+	<head>
+	
+		<meta charset="UTF-8">
+		
+		<title>CS5044 Practical 3</title>
+		
+		<link rel="stylesheet" type="text/css" href="indexCSS.css">
+		<script src="https://d3js.org/d3.v5.js"></script>
+				
+	</head>
+
+	<body>
+		<div id="nav_bar">
+			<ul>
+				<li><img src="Other/Premier_League_Logo.png"></li>
+				<li id="years">2017 - 2018</li>
+			</ul>
+		</div>
+		
+		<script>
+			var dataPath = "http://localhost:8888/Desktop/CS5044%20-%20Info%20Vis/P3/Part%202/Data/Premier_League_2017-2018.csv";
+			d3.csv(dataPath).then(function(data) {
+				console.log(data);
+			})
+		</script>
+		
+		<div id=">
+			<h1></h1>
+		<div>
+	
+	
+	</body>
+	
 </html>
