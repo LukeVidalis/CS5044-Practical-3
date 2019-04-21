@@ -18,7 +18,7 @@
 		</style>
 		<script>
 
-			var dataPath = "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/Data/Premier_League_2017-2018.csv"
+			var dataPath = "http://localhost:8888/Desktop/CS5044%20-%20Info%20Vis/P3/Part%202/Data/Premier_League_2017-2018.csv";
 			var uniqueTeams=[];
 			var SeasonInfo=[];
 			var dataGlobal;
@@ -241,6 +241,8 @@
 			function changeColorAndImage() {
 				var colors = ["#66e0ff", "#e60000", "#002db3", "#e60000", "#002db3", "#e60000", "#002db3", "#002db3", "#66e0ff", "#000000", "#002db3", "#e60000", "#cc0000", "#000000", "#4d79ff", "#4d79ff", "#e60000", "#000000", "#e60000", "#002db3"];
 				var image = document.getElementById("teamLogo");
+				document.getElementById("nav_bar").style.backgroundColor = colors[index];
+				document.getElementById("footer").style.backgroundColor = colors[index];
 				image.src = "Teams/"+index+".png";
 				if(index == 2){
 					image.style.height = "130px";
@@ -257,6 +259,7 @@
 					image.style.width = "130px";
 				}
 			}
+			
 			//Gets data about each team's performance for the whole season
 			function getLeagueInfo(){
 				var teamWins=[];
@@ -366,7 +369,7 @@
 	
 		<div id="nav_bar">
 			<div class="circleBack"></div>
-			<img id="teamLogo" src="Other/Premier_League_Logo.png">
+			<img id="teamLogo" src="">
 		</div>	
 		
 		<div id="secondVis">
