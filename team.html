@@ -9,16 +9,20 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
 		<script src="https://d3js.org/d3.v5.js"></script>
-<!--		<script src="script.js"></script>-->
+		<style>
 
+			svg{
+				width: 100%;
+				height: 80%;
+			}
+		</style>
 		<script>
 
-			var dataPath = "http://localhost:8888/Desktop/CS5044%20-%20Info%20Vis/P3/Part%202//Data/Premier_League_2017-2018.csv"
+			var dataPath = "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/Data/Premier_League_2017-2018.csv"
 			var uniqueTeams=[];
 			var SeasonInfo=[];
 			var dataGlobal;
-			var parameters = location.search.substring(1).split("=");
-			var index = parameters[1];
+			var index;
 
 
 			d3.csv(dataPath)
@@ -30,14 +34,96 @@
 							}
 						});
 						//console.log(uniqueTeams);
+						var parameters = location.search.substring(1).split("=");
+
+						index = parameters[1];
+
 						getLeagueInfo();
 						changeColorAndImage();
 						setUpSecondVis();
 						setUpThirdVis();
+						setUpFourthVis();
 					});
 
+
+			function setUpFourthVis() {
+				var data = []
+				for (var j = 0; j < uniqueTeams.length; j++) {
+					if (uniqueTeams[j]!==SeasonInfo[index]["name"])
+						data.push({'name': uniqueTeams[j], 'goals': 0});
+				}
+
+				dataGlobal.forEach(function(d) {
+					if(SeasonInfo[index]["name"]===d["HomeTeam"]){
+						for (var j = 0; j < data.length; j++) {
+							if (data[j]["name"]===d["AwayTeam"]) {
+								data[j]["goals"]+=parseInt(d["FTHG"]);
+							}
+						}
+					}
+					if(SeasonInfo[index]["name"]===d["AwayTeam"]){
+						for (var j = 0; j < data.length; j++) {
+							if (data[j]["name"]===d["HomeTeam"]) {
+								data[j]["goals"]+=parseInt(d["FTAG"]);
+							}
+						}
+					}
+					});
+				data.sort(function(a, b) {
+					return ((a.goals > b.goals) ? -1 : ((a.goals === b.goals) ? 0 : 1));
+				});
+				console.log(data);
+				var max_h;
+				var svg = d3.select("#fourthVis").append("svg")
+						.selectAll("rect")
+						.data(data)
+						.enter()
+						.append("rect")
+							.attr("height",function (d,i) {
+								if(i===0)
+									max_h=data[i]["goals"];
+								return parseInt(data[i]["goals"])*40;
+							})
+							.attr("width",20)
+							.attr("y",function (d,i) {
+								return 50+(max_h-data[i]["goals"])*40;
+							})
+							.attr("x",function (d,i) {
+								return i*60+100;
+							})
+							.on("mouseenter",function (d,i) {
+								d3.select(this)
+										.style("fill","#5051f9")
+								d3.select("#fourthVis").select("svg")
+										.append("text")
+											.attr("class","tooltip")
+											.attr("x",(i*60+100))
+											.attr("y",(40+(max_h-data[i]["goals"])*40))
+											.text(data[i]["goals"] +" goals scored against "+data[i]["name"])
+							})
+							.on("mouseout",function (d) {
+								d3.select(this)
+										.style("fill","lightblue")
+								d3.selectAll(".tooltip")
+										.remove();
+							})
+				var svg1 = d3.select("#fourthVis").select("svg")
+						.selectAll("text")
+						.data(data)
+						.enter()
+						.append("text")
+							.attr("x",function (d,i) {
+								return i*60+90;
+							})
+							.attr("y",function (d,i) {
+								return 50+(max_h-data[i]["goals"])*40;
+							})
+						.text(function (d,i) {
+							return data[i]["name"];
+						})
+			}
+
 			function setUpSecondVis() {
-			
 				var data = [
 				{name: "Wins", count: SeasonInfo[index]["wins"], color: "#00b300"},
 				{name: "Draws", count: SeasonInfo[index]["draws"], color: "#0000cc"},
@@ -273,29 +359,6 @@
 				});
 				console.log(SeasonInfo);
 			}
-			
-			<!-- function getWinLossData(teamID) { -->
-				<!-- var data = [ -->
-				<!-- {name: "wins", count: 2, color: "#00ff00"}, -->
-				<!-- {name: "draws", count: 2, color: "#0000ff"}, -->
-				<!-- {name: "losses", count: 1, color: "#ff0000"},]; -->
-				<!-- return data; -->
-			<!-- } -->
-
-			<!-- function loadTeam(teamID) { -->
-				<!-- var teamLogo = document.getElementsByClassName("teamLogo"); -->
-				<!-- var info = document.getElementsByClassName("teamInfo"); -->
-				
-				<!-- for(var i = 0; i < teamLogo.length; i++) { -->
-					<!-- $(teamLogo[i].css("background-image", "url(Teams/"+teamID+".png)"; -->
-				<!-- } -->
-				
-				<!-- info[0].innerHTML = SeasonInfo[teamID][name]; -->
-				<!-- info[1].innerHTML = "Position: "+teamID; -->
-				<!-- info[2].innerHTML = "Points: "+SeasonInfo[teamID][points];				 -->
-			<!-- } -->
-			
-
 		</script>
 	</head>
 
@@ -314,12 +377,11 @@
 		<h1>TEST 3</h1>
 		</div>
 		
-		<div id="fourthVis">
-		<h1>TEST 3</h1>
+		<div id="fourthVis" style="height: 500px;">
 		</div>
 		
 		
-		
+
 		<div id="footer">
 			<a onclick="alert('This has not been implemented')" class="fa fa-facebook"></a>
 			<a onclick="alert('This has not been implemented')" class="fa fa-twitter"></a>
@@ -330,49 +392,5 @@
 			<h4>DISCLAIMER</h4>
 			<p id="disclaimer">This site has been constructed as coursework for module CS5044 Information Visualiztaion, at the University of St. Andrews.  It is not a working website and is not connected with any site or individual referenced.</p>
 		</div>
-	
-<!--		<script>
-				var data = [
-				{name: "wins", count: 2, color: "#00ff00"},
-				{name: "draws", count: 2, color: "#0000ff"},
-				{name: "losses", count: 1, color: "#ff0000"},];
-				
-				
-				var width = 540, height = 540, radius = 200;
-				
-				var arc = d3.arc()
-					.outerRadius(radius - 10)
-					.innerRadius(100);
-					
-				var pie = d3.pie()
-					.sort(null)
-					.value(function(d) {
-						return d.count;
-					});
-					
-				var svg = d3.select("#secondVis").append("svg")
-					.attr("width", width)
-					.attr("height", height)
-					.append("g")
-					.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-				
-				var g = svg.selectAll(".arc")
-					.data(pie(data))
-					.enter().append("g");
-				
-				g.append("path")
-					.attr("d", arc)
-					.style("fill", function(d,i) {
-						return d.data.color;
-					});
-					
-				g.append("text")
-					.attr("text-anchor", "middle")
-					.attr("font-size", "4em")
-					.attr("y", 20)
-					.text(totalCount);
-		</script>-->
-	
 	</body>
-
 </html>
