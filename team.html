@@ -5,7 +5,7 @@
 	
 		<meta charset="UTF-8">
 		
-		<link rel="stylesheet" type="text/css" href="indexCSS.css">
+		<link rel="stylesheet" type="text/css" href="teamCSS.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
 		<script src="https://d3js.org/d3.v5.js"></script>
@@ -17,7 +17,8 @@
 			var uniqueTeams=[];
 			var SeasonInfo=[];
 			var dataGlobal;
-
+			var parameters = location.search.substring(1).split("=");
+			var index = parameters[1];
 
 
 			d3.csv(dataPath)
@@ -30,15 +31,13 @@
 						});
 						//console.log(uniqueTeams);
 						getLeagueInfo();
+						changeColorAndImage();
 						setUpSecondVis();
+						setUpThirdVis();
 					});
 
 			function setUpSecondVis() {
 			
-				var parameters = location.search.substring(1).split("=");
-
-				var index = parameters[1];
-				
 				var data = [
 				{name: "Wins", count: SeasonInfo[index]["wins"], color: "#00b300"},
 				{name: "Draws", count: SeasonInfo[index]["draws"], color: "#0000cc"},
@@ -101,9 +100,8 @@
 				var index = parameters[1];
 				
 				var data = [
-				{name: "Wins", count: SeasonInfo[index]["wins"], color: "#00b300"},
-				{name: "Draws", count: SeasonInfo[index]["draws"], color: "#0000cc"},
-				{name: "Losses", count: SeasonInfo[index]["losses"], color: "#e60000"},];
+				{name: "Home Goals", count: SeasonInfo[index]["home_goals"], color: "#00b300"},
+				{name: "Away Goals", count: SeasonInfo[index]["away_goals"], color: "#0000cc"},];
 				
 				var width = 540, height = 540, radius = 200;
 				
@@ -117,7 +115,7 @@
 						return d.count;
 					});
 					
-				var svg = d3.select("#secondVis").append("svg")
+				var svg = d3.select("#thirdVis").append("svg")
 					.attr("width", width)
 					.attr("height", height)
 					.append("g")
@@ -136,8 +134,8 @@
 				g.append("text")
 					.attr("transform", function(d) {
 						var _d = arc.centroid(d);
-						_d[0] *= 1.6;	//multiply by a constant factor
-						_d[1] *= 1.6;	//multiply by a constant factor
+						_d[0] *= 1.7;	//multiply by a constant factor
+						_d[1] *= 1.7;	//multiply by a constant factor
 						return "translate(" + _d + ")";
 					})
 					.attr("dy", ".50em")
@@ -154,7 +152,25 @@
 					.attr("height", "100");
 			};			
 
-
+			function changeColorAndImage() {
+				var colors = ["#66e0ff", "#e60000", "#002db3", "#e60000", "#002db3", "#e60000", "#002db3", "#002db3", "#66e0ff", "#000000", "#002db3", "#e60000", "#cc0000", "#000000", "#4d79ff", "#4d79ff", "#e60000", "#000000", "#e60000", "#002db3"];
+				var image = document.getElementById("teamLogo");
+				image.src = "Teams/"+index+".png";
+				if(index == 2){
+					image.style.height = "130px";
+					image.style.width = "80px";
+					image.style.marginLeft = "875px";					
+				}
+				else if(index == 15){
+					image.style.height = "150px";
+					image.style.width = "120px";
+					image.style.marginLeft = "855px";					
+				}				
+				else {
+					image.style.height = "130px";
+					image.style.width = "130px";
+				}
+			}
 			//Gets data about each team's performance for the whole season
 			function getLeagueInfo(){
 				var teamWins=[];
@@ -284,22 +300,11 @@
 	</head>
 
 	<body>
+	
 		<div id="nav_bar">
-			<ul>
-				<li><img src="Other/Premier_League_Logo.png"></li>
-				<li id="years">2017 - 2018</li>
-			</ul>
-		</div>
-		
-		<div id="generalInfo">
-			<div class="teamLogo">
-			</div>
-			<div id="info">
-				<p class="teamInfo"></p>
-				<p class="teamInfo"></p>
-				<p class="teamInfo"></p>
-			</div>
-		</div>
+			<div class="circleBack"></div>
+			<img id="teamLogo" src="Other/Premier_League_Logo.png">
+		</div>	
 		
 		<div id="secondVis">
 		<h1>TEST 2</h1>
@@ -322,8 +327,6 @@
 			<a onclick="alert('This has not been implemented')" class="fa fa-linkedin"></a>
 			<a onclick="alert('This has not been implemented')" class="fa fa-youtube"></a>
 			<a onclick="alert('This has not been implemented')" class="fa fa-snapchat-ghost"></a>
-			<p>Email: premier-league-stats@pls.com</p>
-			<p>Phone: (+44) 07712345678</p>
 			<h4>DISCLAIMER</h4>
 			<p id="disclaimer">This site has been constructed as coursework for module CS5044 Information Visualiztaion, at the University of St. Andrews.  It is not a working website and is not connected with any site or individual referenced.</p>
 		</div>
