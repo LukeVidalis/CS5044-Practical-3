@@ -75,8 +75,8 @@
 				g.append("text")
 					.attr("transform", function(d) {
 						var _d = arc.centroid(d);
-						_d[0] *= 1.5;	//multiply by a constant factor
-						_d[1] *= 1.5;	//multiply by a constant factor
+						_d[0] *= 1.6;	//multiply by a constant factor
+						_d[1] *= 1.6;	//multiply by a constant factor
 						return "translate(" + _d + ")";
 					})
 					.attr("dy", ".50em")
@@ -88,7 +88,7 @@
 				g.append("svg:image")
 					.attr("xlink:href", "Teams/"+index+".png")
 					.attr("x", "-50")
-					.attr("y", "-45")
+					.attr("y", "-50")
 					.attr("width", "100")
 					.attr("height", "100");
 			};
