@@ -2,6 +2,7 @@ var dataPath = "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visuali
 var uniqueTeams=[];
 var SeasonInfo=[];
 var dataGlobal;
+
 d3.csv(dataPath)
     .then(function (data) {
         dataGlobal=data;
