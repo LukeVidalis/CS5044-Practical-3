@@ -1,7 +1,11 @@
+
 var dataPath = "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/Data/Premier_League_2017-2018.csv"
 var uniqueTeams=[];
 var SeasonInfo=[];
 var dataGlobal;
+
+
+
 d3.csv(dataPath)
     .then(function (data) {
         dataGlobal=data;
@@ -11,8 +15,24 @@ d3.csv(dataPath)
             }
         });
         //console.log(uniqueTeams);
+        alert("hello");
         getLeagueInfo();
+        setUpVis();
     });
+
+function setUpVis() {
+    d3.select("svg")
+        .selectAll("rect")
+        .data(SeasonInfo)
+        .enter()
+        .append("rect")
+            .attr("width",20)
+            .attr("height",20)
+            .attr("x",50)
+            .attr("y",50)
+    console.log("hey")
+};
+
 
 //Gets data about each team's performance for the whole season
 function getLeagueInfo(){
