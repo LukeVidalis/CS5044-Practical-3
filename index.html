@@ -5,7 +5,7 @@
 	<head>
 	
 		<meta charset="UTF-8">
-
+		<link rel="icon" href="http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202//Other/favicon.ico" sizes="16x16" type="image/png">
 		<title>CS5044 Practical 3</title>
 		
 		<link rel="stylesheet" type="text/css" href="indexCSS.css">
@@ -138,33 +138,7 @@
 								else
 									return 350;
 							})
-						.append("a")
-							.attr("xlink:href", "http://en.wikipedia.org/wiki/")
-						.append("rect")
-							.attr("width",80)
-							.attr("height",80)
-							.attr("x",function (d,i) {
-								return (i%5)*150 +400;
-							})
-							.attr("y",function (d,i) {
-								//console.log(SeasonInfo[i]["points"]);
-								if(i<=4)
-								return 50;
-								else if(i>4&&i<=9)
-									return 150;
-								else if(i>9&&i<=14)
-									return 250;
-								else
-									return 350;
-							})
-							.on("mouseenter",function (d) {
-								d3.select(this)
-										.style("fill","#f93378")
-							})
-							.on("mouseout",function (d) {
-								d3.select(this)
-										.style("fill","white")
-							})
+
 
 
 
