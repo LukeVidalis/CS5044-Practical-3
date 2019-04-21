@@ -42,7 +42,27 @@ li img {
 	font-weight: bold;
 	color: #330066;
 }
+rect{
+	fill: lightblue;
+	stroke: darkblue;
+	stroke-width: 2px;
+}
+line{
+	fill:black;
+	width: 10px;
+	stroke-width: 3px;
+}
+#fourthVis {
+	height: 2000px;
+	writing-mode: vertical-rl;
+	text-orientation: mixed;
+	width: 100%;
 
+}
+.tooltip{
+	writing-mode: horizontal-tb;
+	text-orientation: mixed;
+}
 
 #footer {
 	position: fixed;
