@@ -13,6 +13,204 @@
 		<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
 		<script src="https://d3js.org/d3.v5.js"></script>
 				
+		<script>
+			var dataPath = "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/Data/Premier_League_2017-2018.csv"
+			var uniqueTeams=[];
+			var SeasonInfo=[];
+			var dataGlobal;
+
+			d3.csv(dataPath)
+				.then(function (data) {
+					dataGlobal=data;
+					data.forEach(function(d) {
+						if(uniqueTeams.indexOf(d["HomeTeam"])===-1){
+							uniqueTeams.push(d["HomeTeam"]);
+						}
+					});
+					//console.log(uniqueTeams);
+					alert("hello");
+					getLeagueInfo();
+					setUpVis();
+				});
+
+			//Gets data about each team's performance for the whole season
+			function getLeagueInfo(){
+				var teamWins=[];
+				var teamDraws=[];
+				var teamLosses=[];
+				var homeGoals=[];
+				var awayGoals=[];
+				var concededGoals=[];
+				var yellowCards=[];
+				var redCards=[];
+				var corners=[];
+				for (var i = 0; i < uniqueTeams.length; i++) {
+					var wins =0;
+					var draws =0;
+					var losses =0;
+					var hg =0;
+					var ag =0;
+					var cg =0;
+					var yc =0;
+					var rc =0;
+					var crn =0;
+
+					dataGlobal.forEach(function(d) {
+						if((uniqueTeams[i]===d["HomeTeam"])&&(d["FTR"]==="H")){
+							wins++;
+						}
+						if((uniqueTeams[i]===d["AwayTeam"])&&(d["FTR"]==="A")){
+							wins++;
+						}
+						if((uniqueTeams[i]===d["HomeTeam"])&&(d["FTR"]==="D")){
+							draws++;
+						}
+						if((uniqueTeams[i]===d["AwayTeam"])&&(d["FTR"]==="D")){
+							draws++;
+						}
+						if((uniqueTeams[i]===d["HomeTeam"])&&(d["FTR"]==="A")){
+							losses++;
+						}
+						if((uniqueTeams[i]===d["AwayTeam"])&&(d["FTR"]==="H")){
+							losses++;
+						}
+						if(uniqueTeams[i]===d["HomeTeam"]){
+							hg=hg+parseInt(d["FTHG"]);
+						}
+						if(uniqueTeams[i]===d["AwayTeam"]){
+							ag=ag+parseInt(d["FTAG"]);
+						}
+						if(uniqueTeams[i]===d["AwayTeam"]){
+							cg=cg+parseInt(d["FTHG"]);
+						}
+						if(uniqueTeams[i]===d["HomeTeam"]){
+							cg=cg+parseInt(d["FTAG"]);
+						}
+						if(uniqueTeams[i]===d["AwayTeam"]){
+							yc=yc+parseInt(d["AY"]);
+						}
+						if(uniqueTeams[i]===d["HomeTeam"]){
+							yc=yc+parseInt(d["HY"]);
+						}
+						if(uniqueTeams[i]===d["AwayTeam"]){
+							rc=rc+parseInt(d["AR"]);
+						}
+						if(uniqueTeams[i]===d["HomeTeam"]){
+							rc=rc+parseInt(d["HR"]);
+						}
+						if(uniqueTeams[i]===d["AwayTeam"]){
+							crn=crn+parseInt(d["AR"]);
+						}
+						if(uniqueTeams[i]===d["HomeTeam"]){
+							crn=crn+parseInt(d["HR"]);
+						}
+					});
+					teamWins.push(wins);
+					teamDraws.push(draws);
+					teamLosses.push(losses);
+					homeGoals.push(hg);
+					awayGoals.push(ag);
+					concededGoals.push(cg);
+					yellowCards.push(yc);
+					redCards.push(rc);
+					corners.push(crn);
+				}
+
+
+				//Sort Data to match Premier League Rankings and merge them into one array
+				for (var j = 0; j < uniqueTeams.length; j++)
+					SeasonInfo.push({'name': uniqueTeams[j], 'wins': teamWins[j], 'draws': teamDraws[j], 'losses': teamLosses[j],
+						'total_goals':homeGoals[j]+awayGoals[j],'home_goals':homeGoals[j],'away_goals':awayGoals[j],
+						'conceded_goals':concededGoals[j], 'goal_difference': homeGoals[j]+awayGoals[j]-concededGoals[j] ,
+						'yellow_cards': yellowCards[j],'rec_cards':redCards[j], 'booking_pts':yellowCards[j]*10+redCards[j]*25,
+						'corners':corners[j],'points' :teamWins[j]*3+teamDraws[j]});
+
+				SeasonInfo.sort(function(a, b) {
+					if(a.points!==b.points) {
+						return ((a.points > b.points) ? -1 : ((a.points === b.points) ? 0 : 1));
+					}
+					else{
+						return ((a.goal_difference > b.goal_difference) ? -1 : ((a.goal_difference === b.goal_difference) ? 0 : 1));
+					}
+				});
+				console.log(SeasonInfo);
+			}
+			
+			function setDonutVis(teamID) {
+				var width = 540, height = 540, radius = 200;
+				
+				var arc = d3.arc()
+					.outerRadius(radius - 10)
+					.innerRadius(100);
+					
+				var pie = d3.pie()
+					.sort(null)
+					.value(function(d) {
+						return d.count;
+					});
+					
+				var svg = d3.select("#secondVis").append("svg")
+					.attr("width", width)
+					.attr("height", height)
+					.append("g")
+					.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+				
+				var g = svg.selectAll(".arc")
+					.data(pie(data))
+					.enter().append("g");
+				
+				g.append("path")
+					.attr("d", arc)
+					.style("fill", function(d,i) {
+						return d.data.color;
+					});
+					
+				g.append("text")
+					.attr("transform", function(d) {
+						var _d = arc.centroid(d);
+						_d[0] *= 1.5;
+						_d[1] *= 1.5;
+						return "translate(" + _d + ")";
+					})
+					.attr("dy", ".50em")
+					.style("text-anchor", "middle")
+					.text(function(d) {
+						if(d.data.percentage < 8) {
+							return "";
+							}
+						return d.data.percentage + "%";
+					});
+					
+				g.append("text")
+					.attr("text-anchor", "middle")
+					.attr("font-size", "4em")
+					.attr("y", 20)
+					.text(totalCount);
+			}
+			
+			function getWinLossData(teamID) {
+				var data = [
+				{name: "wins", count: 2, color: "#00ff00"},
+				{name: "draws", count: 2, color: "#0000ff"},
+				{name: "losses", count: 1, color: "#ff0000"},];
+				return data;
+			}
+
+			function loadTeam(teamID) {
+				var teamLogo = document.getElementsByClassName("teamLogo");
+				var info = document.getElementsByClassName("teamInfo");
+				
+				for(var i = 0; i < teamLogo.length; i++) {
+					$(teamLogo[i].css("background-image", "url(Teams/"+teamID+".png)";
+				}
+				
+				info[0].innerHTML = SeasonInfo[teamID][name];
+				info[1].innerHTML = "Position: "+teamID;
+				info[2].innerHTML = "Points: "+SeasonInfo[teamID][points];				
+			}
+			
+
+		</script>
 	</head>
 
 	<body>
@@ -23,8 +221,18 @@
 			</ul>
 		</div>
 		
-		<div>
-			
+		<div id="generalInfo">
+			<div class="teamLogo">
+			</div>
+			<div id="info">
+				<p class="teamInfo"></p>
+				<p class="teamInfo"></p>
+				<p class="teamInfo"></p>
+			</div>
+		</div>
+		
+		<div id="secondVis">
+
 		</div>
 		
 		<div id="footer">
@@ -40,6 +248,47 @@
 			<p id="disclaimer">This site has been constructed as coursework for module CS5044 Information Visualiztaion, at the University of St. Andrews.  It is not a working website and is not connected with any site or individual referenced.</p>
 		</div>
 	
+		<script>
+				var data = [
+				{name: "wins", count: 2, color: "#00ff00"},
+				{name: "draws", count: 2, color: "#0000ff"},
+				{name: "losses", count: 1, color: "#ff0000"},];
+				
+				
+				var width = 540, height = 540, radius = 200;
+				
+				var arc = d3.arc()
+					.outerRadius(radius - 10)
+					.innerRadius(100);
+					
+				var pie = d3.pie()
+					.sort(null)
+					.value(function(d) {
+						return d.count;
+					});
+					
+				var svg = d3.select("#secondVis").append("svg")
+					.attr("width", width)
+					.attr("height", height)
+					.append("g")
+					.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+				
+				var g = svg.selectAll(".arc")
+					.data(pie(data))
+					.enter().append("g");
+				
+				g.append("path")
+					.attr("d", arc)
+					.style("fill", function(d,i) {
+						return d.data.color;
+					});
+					
+				g.append("text")
+					.attr("text-anchor", "middle")
+					.attr("font-size", "4em")
+					.attr("y", 20)
+					.text(totalCount);
+		</script>
 	
 	</body>
 
