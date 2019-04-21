@@ -138,6 +138,28 @@
 								else
 									return 350;
 							})
+							.on("mouseenter",function (d,i) {
+								d3.select("svg")
+										.append("text")
+										.attr("class","tooltip")
+										.attr("x",((1%5)*150 +400))
+										.attr("y",(20))
+										.text(function (d) {
+											if(i<5)
+												return SeasonInfo[i]["name"]+" had "+SeasonInfo[i]["points"]+" points at the end of the season."
+											else if(i>4&&i<=9)
+												return SeasonInfo[parseInt(10-i%5-1)]["name"]+" had "+SeasonInfo[parseInt(10-i%5-1)]["points"]+" points at the end of the season."
+
+											else if(i>9&&i<=14)
+												return SeasonInfo[i]["name"]+" had "+SeasonInfo[i]["points"]+" points at the end of the season."
+											else
+												return SeasonInfo[parseInt(20-i%5-1)]["name"]+" had "+SeasonInfo[parseInt(20-i%5-1)]["points"]+" points at the end of the season."
+										})//SeasonInfo[i]["name"]+" had "+SeasonInfo[i]["points"]+" points at the end of the season.")
+							})
+							.on("mouseout",function (d) {
+								d3.selectAll(".tooltip")
+										.remove();
+							})
 
 
 
