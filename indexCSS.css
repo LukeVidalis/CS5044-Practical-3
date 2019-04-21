@@ -16,7 +16,7 @@
 	height: 135px;
 }
 rect{
-	fill: #ff0066;
+	fill: white;
 	stroke: blue;
 	stroke-width: 5px;
 }
@@ -26,9 +26,11 @@ line{
 	stroke-width: 3px;
 }
 
+
 #FirstVis {
 	/*margin-top: 70px;*/
 	height: 2000px;
+	font-family: Impact;
 }
 
 li {
