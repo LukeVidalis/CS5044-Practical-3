@@ -22,7 +22,7 @@
 		</style>
 		<script>
 
-			var dataPath = "http://localhost:8888/Desktop/CS5044%20-%20Info%20Vis/P3/Part%202//Data/Premier_League_2017-2018.csv"
+			var dataPath = "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/Data/Premier_League_2017-2018.csv"
 			var uniqueTeams=[];
 			var SeasonInfo=[];
 			var dataGlobal;
@@ -96,6 +96,10 @@
 						.selectAll("rect")
 						.data(SeasonInfo)
 						.enter()
+						.append("a")
+						.attr("xlink:href", function (d,i) {
+							return "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/team.html?id="+i
+						})
 						.append("svg:image")
 							.attr('width', 80)
 							.attr('height', 80)
