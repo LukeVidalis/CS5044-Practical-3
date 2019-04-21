@@ -44,14 +44,54 @@
 
 			function setUpVis() {
 				d3.select("svg")
-						.selectAll("line")
 						.append("line")
-							.attr("x1",80)
-							.attr("y1",80)
-							.attr("x2",160)
-							.attr("y2",160)
-				console.log("line");
-
+							.attr("x1",450)
+							.attr("y1",90)
+							.attr("x2",1000)
+							.attr("y2",90)
+							.attr("stroke", "black");
+				d3.select("svg")
+						.append("line")
+						.attr("x1",1040)
+						.attr("y1",90)
+						.attr("x2",1040)
+						.attr("y2",160)
+						.attr("stroke", "black");
+				d3.select("svg")
+						.append("line")
+						.attr("x1",1040)
+						.attr("y1",190)
+						.attr("x2",450)
+						.attr("y2",190)
+						.attr("stroke", "black");
+				d3.select("svg")
+						.append("line")
+						.attr("x1",440)
+						.attr("y1",160)
+						.attr("x2",440)
+						.attr("y2",300)
+						.attr("stroke", "black");
+				d3.select("svg")
+						.append("line")
+						.attr("x1",450)
+						.attr("y1",290)
+						.attr("x2",1000)
+						.attr("y2",290)
+						.attr("stroke", "black");
+				d3.select("svg")
+						.append("line")
+						.attr("x1",1040)
+						.attr("y1",290)
+						.attr("x2",1040)
+						.attr("y2",360)
+						.attr("stroke", "black");
+				d3.select("svg")
+						.append("line")
+						.attr("x1",450)
+						.attr("y1",390)
+						.attr("x2",1000)
+						.attr("y2",390)
+						.attr("stroke", "black");
 				d3.select("svg")
 						.selectAll("rect")
 						.data(SeasonInfo)
