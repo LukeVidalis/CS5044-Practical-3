@@ -73,6 +73,20 @@ line{
 	margin-bottom: -5%;
 }
 
+#leagueTable {
+	text-align: center; 
+	margin-bottom: -5%; 
+	color: #330066;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+#leagueTable h1{
+	font-size: 25pt;
+}
+
+#leagueTable p{
+	font-size: 15pt;
+}
 
 #footer {
 	margin-top: -130px;
