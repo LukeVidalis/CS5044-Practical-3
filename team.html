@@ -130,7 +130,7 @@
 				{name: "Draws", count: SeasonInfo[index]["draws"], color: "#0000cc"},
 				{name: "Losses", count: SeasonInfo[index]["losses"], color: "#e60000"},];
 				
-				var width = 540, height = 540, radius = 200;
+				var width = 480, height = 400, radius = 200;
 				
 				var arc = d3.arc()
 					.outerRadius(radius - 10)
@@ -146,7 +146,7 @@
 					.attr("width", width)
 					.attr("height", height)
 					.append("g")
-					.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+					.attr("transform", "translate(" + (width / 2 +20) + "," + height / 2 + ")");
 				
 				var g = svg.selectAll(".arc")
 					.data(pie(data))
@@ -187,10 +187,10 @@
 				var index = parameters[1];
 				
 				var data = [
-				{name: "Home", count: SeasonInfo[index]["home_goals"], color: "#00b300"},
-				{name: "Away", count: SeasonInfo[index]["away_goals"], color: "#0000cc"},];
+				{name: "Home Goals", count: SeasonInfo[index]["home_goals"], color: "#00b300"},
+				{name: "Away Goals", count: SeasonInfo[index]["away_goals"], color: "#0000cc"},];
 				
-				var width = 540, height = 540, radius = 200;
+				var width = 540, height = 400, radius = 200;
 				
 				var arc = d3.arc()
 					.outerRadius(radius - 10)
@@ -206,7 +206,7 @@
 					.attr("width", width)
 					.attr("height", height)
 					.append("g")
-					.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+					.attr("transform", "translate(" + (width / 2+30) + "," + height / 2 + ")");
 				
 				var g = svg.selectAll(".arc")
 					.data(pie(data))
@@ -375,15 +375,17 @@
 		
 		<div id="row">
 			<div id="secondVis" class="column">
-			<h1>TEST 2</h1>
+			<h1>End Season Statistics</h1>
 			</div>
 			
 			<div id="thirdVis" class="column">
-			<h1 style="float: right; margin-right: 45%">TEST 3</h1>
+			<h1 style="float: right; margin-right: 45%">Home vs Away Goals</h1>
 			</div>
 		</div>
-		
-		<div id="fourthVis" style="margin-bottom: 10%; margin-top: 0%">
+		<div id="fourthTitle">
+		<h1>Goals Scored vs Each Team</h1>
+		</div>
+		<div id="fourthVis" >
 		</div>
 		
 		
