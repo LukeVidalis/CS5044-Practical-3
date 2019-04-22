@@ -19,7 +19,7 @@
 		</style>
 		<script>
 
-			var dataPath = "http://localhost:8888/Desktop/CS5044%20-%20Info%20Vis/P3/Part%202/Data/Premier_League_2017-2018.csv";
+			var dataPath = "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/Data/Premier_League_2017-2018.csv";
 			var uniqueTeams=[];
 			var SeasonInfo=[];
 			var dataGlobal;
@@ -44,8 +44,83 @@
 						setUpSecondVis();
 						setUpThirdVis();
 						setUpFourthVis();
+
+						setUpCardVis();
 					});
 
+
+			function setUpCardVis() {
+				var data=[]
+				data.push({'yellow':SeasonInfo[index]["yellow_cards"]});
+				data.push({'red':SeasonInfo[index]["red_cards"]});
+
+				var svg = d3.select("#cardVis").append("svg")
+						.selectAll("rect")
+						.data(data)
+						.enter()
+						.append("rect")
+						.attr("height",70)
+						.attr("width",50)
+						.attr("y",40)
+						.attr("x",function (d,i) {
+							return i*100+1000;
+						})
+						.style("fill",function (d,i) {
+							if(i===0)
+								return "yellow"
+							else
+								return "red"
+						})
+
+						.on("mouseenter",function (d,i) {
+							d3.select(this)
+									.style("fill", function (d) {
+										if (i === 0)
+											return "darkgoldenrod"
+										else
+											return "darkred"
+									})
+							d3.select("#cardVis").select("svg")
+									.append("text")
+									.attr("class", "tooltip")
+									.attr("x", (1000))
+									.attr("y", (25))
+									.text(function (d) {
+										if(i===0)
+											return data[i]["yellow"]+" yellow cards acquired during the season."
+										else
+											return data[i]["red"]+" red cards acquired during the season."
+									})
+						})
+						.on("mouseout",function (d,i) {
+							d3.select(this)
+									.style("fill",function (d) {
+										if(i===0)
+											return "yellow"
+										else
+											return "red"
+									})
+							d3.selectAll(".tooltip")
+									.remove();
+						})
+				var svg1 = d3.select("#cardVis").select("svg")
+						.selectAll("text")
+						.data(data)
+						.enter()
+						.append("text")
+						.attr("x",function (d,i) {
+							return i*105+1015;
+						})
+						.attr("y",function (d,i) {
+							return 80;
+						})
+						.text(function (d,i) {
+							if(i===0)
+								return data[i]["yellow"]
+							else
+								return data[i]["red"]
+						})
+			}
 
 			function setUpFourthVis() {
 				var data = []
@@ -351,7 +426,7 @@
 					SeasonInfo.push({'name': uniqueTeams[j], 'wins': teamWins[j], 'draws': teamDraws[j], 'losses': teamLosses[j],
 						'total_goals':homeGoals[j]+awayGoals[j],'home_goals':homeGoals[j],'away_goals':awayGoals[j],
 						'conceded_goals':concededGoals[j], 'goal_difference': homeGoals[j]+awayGoals[j]-concededGoals[j] ,
-						'yellow_cards': yellowCards[j],'rec_cards':redCards[j], 'booking_pts':yellowCards[j]*10+redCards[j]*25,
+						'yellow_cards': yellowCards[j],'red_cards':redCards[j], 'booking_pts':yellowCards[j]*10+redCards[j]*25,
 						'corners':corners[j],'points' :teamWins[j]*3+teamDraws[j]});
 
 				SeasonInfo.sort(function(a, b) {
@@ -384,7 +459,8 @@
 			<ul>
 				<li><a href="index.html"><img style="width: 30px; height: 20px" src="Other/left-arrow.png">Back Home</a></li>
 				<li><h1 id="teamName">TEAM NAME</h1></li>				
-				<li style="float: right"><img id="teamLogo" src=""></li>
+				<li style="float: right" ><img id="teamLogo" src=""></li>
+
 			</ul>
 		</div>
 		
@@ -401,6 +477,9 @@
 
 
 		<div id="fourthVis" >
+
+		</div>
+		<div id="cardVis" >
 
 		</div>
 		<div style="position: relative;">

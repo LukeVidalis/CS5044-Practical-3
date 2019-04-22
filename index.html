@@ -289,7 +289,7 @@
 					SeasonInfo.push({'name': uniqueTeams[j], 'wins': teamWins[j], 'draws': teamDraws[j], 'losses': teamLosses[j],
 						'total_goals':homeGoals[j]+awayGoals[j],'home_goals':homeGoals[j],'away_goals':awayGoals[j],
 						'conceded_goals':concededGoals[j], 'goal_difference': homeGoals[j]+awayGoals[j]-concededGoals[j] ,
-						'yellow_cards': yellowCards[j],'rec_cards':redCards[j], 'booking_pts':yellowCards[j]*10+redCards[j]*25,
+						'yellow_cards': yellowCards[j],'red_cards':redCards[j], 'booking_pts':yellowCards[j]*10+redCards[j]*25,
 						'corners':corners[j],'points' :teamWins[j]*3+teamDraws[j]});
 
 				SeasonInfo.sort(function(a, b) {
