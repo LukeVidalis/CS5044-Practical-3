@@ -72,17 +72,35 @@ line{
 
 #fourthVis {
 	display: inline;
-	height: 470px;
+	height: 600px;
 	writing-mode: vertical-rl;
 	text-orientation: mixed;
 	width: 100%;
 	position: relative;
 	font-family: "Myriad Pro";
+	/*margin-top: -5%;*/
+	top: 100px;
 }
 
+#fourthTitle{
+	position: absolute;
+	display: inline;
+	writing-mode: horizontal-tb;
+	text-orientation: upright;
+	/*padding-bottom: 50px;*/
+	top: -900px;
+	left: 200px
+}
 
+#cardVis {
+	position: relative;
+	height: 150px;
+	/*padding-bottom: 50px;*/
+	top: -610px;
+	left: 100px
+}
 #fourthVis svg{
-	margin-bottom: -50%;
+	/*margin-bottom: -50%;*/
 }
 
 .tooltip{
@@ -122,26 +140,8 @@ line{
 	margin-right: -5%;
 }
 
-#fouthVis {
-	margin-top: -30%;
-}
-#fourthTitle{
-	position: absolute;
-	display: inline;
-	writing-mode: horizontal-tb;
-	text-orientation: upright;
-	padding-bottom: 50px;
-	top: -720px;
-	left: 200px
-}
 
-#cardVis {
-	position: relative;
-	height: 150px;
-	/*padding-bottom: 50px;*/
-	top: -600px;
-	left: 100px
-}
+
 #footer {
 
 	margin-top: -130px;
