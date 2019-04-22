@@ -57,8 +57,13 @@ li img {
     height: 50px;
 	width: 100px;
 	float: left;
+	right: 10px;
 }
-
+li #teamLogo{
+	width: 100px;
+	margin-right: 10%;
+	float: left;
+}
 li a {
 	margin-top: 16%;
 	margin-left: 10%;
@@ -126,12 +131,14 @@ line{
 }
 
 #secondVis {
+	margin-top: 10%;
 	margin-left: 5%;
 	margin-right: -10%;
 }
 
 
 #thirdVis {
+	margin-top: 10%;
 	margin-left: 5%;
 	margin-right: -5%;
 }
@@ -223,7 +230,6 @@ h4 {
 	color: white;
 	opacity: 0.9;
 	font-size: 12pt;
-	float: center;
 	cursor: pointer;
 	background-color: #EE7600;
 	text-align: center;
