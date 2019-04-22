@@ -240,20 +240,21 @@
 			};			
 
 			function changeColorAndImage() {
-				var colors = ["#66e0ff", "#e60000", "#000099", "#e60000", "#002db3", "#e60000", "#002db3", "#002db3", "#66e0ff", "#000000", "#002db3", "#e60000", "#cc0000", "#000000", "#4d79ff", "#4d79ff", "#e60000", "#000000", "#e60000", "#002db3"];
+				var colors = ["#66e0ff", "#e60000", "#4d4dff", "#e60000", "#002db3", "#e60000", "#002db3", "#002db3", "#66e0ff", "#808080", "#002db3", "#e60000", "#cc0000", "#808080", "#4d79ff", "#4d79ff", "#e60000", "#808080", "#e60000", "#002db3"];
 				var image = document.getElementById("teamLogo");
 				document.getElementById("nav_bar").style.backgroundColor = colors[index];
 				document.getElementById("footer").style.backgroundColor = colors[index];
+				document.getElementById("teamName").innerHTML = SeasonInfo[index]["name"];
 				image.src = "Teams/"+index+".png";
 				if(index == 2){
 					image.style.height = "130px";
 					image.style.width = "80px";
-					image.style.marginLeft = "46.5%";					
+					<!-- image.style.marginLeft = "46.5%";					 -->
 				}
 				else if(index == 15){
 					image.style.height = "150px";
 					image.style.width = "120px";
-					image.style.marginLeft = "45.5%";					
+					<!-- image.style.marginLeft = "45.5%";					 -->
 				}				
 				else {
 					image.style.height = "130px";
@@ -368,10 +369,24 @@
 
 	<body>
 	
+		<!-- <div id="nav_bar"> -->
+			<!-- <ul> -->
+				<!-- <li> -->
+					<!-- <img id="teamLogo" src=""> -->
+				<!-- </li> -->
+				<!-- <li> -->
+					<!-- <h1>TEAM NAME</h1> -->
+				<!-- </li> -->
+			<!-- </ul> -->
+		<!-- </div> -->
+
 		<div id="nav_bar">
-			<div class="circleBack"></div>
-			<img id="teamLogo" src="">
-		</div>	
+			<ul>
+				<li><a href="index.html"><img style="width: 30px; height: 20px" src="Other/left-arrow.png">Back Home</a></li>
+				<li><h1 id="teamName">TEAM NAME</h1></li>				
+				<li style="float: right"><img id="teamLogo" src=""></li>
+			</ul>
+		</div>
 		
 		<div id="row">
 			<div id="secondVis" class="column">
@@ -379,11 +394,11 @@
 			</div>
 			
 			<div id="thirdVis" class="column">
-			<h1 style="float: right; margin-right: 45%">TEST 3</h1>
+			<h1>TEST 3</h1>
 			</div>
 		</div>
 		
-		<div id="fourthVis" style="margin-bottom: 10%; margin-top: 0%">
+		<div id="fourthVis">
 		</div>
 		
 		
