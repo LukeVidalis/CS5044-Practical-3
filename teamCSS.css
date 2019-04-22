@@ -10,7 +10,7 @@
 }
 
 #nav_bar img {
-    margin-left: 40.5%;
+    margin-left: 45%;
 	margin-top: -7%;
     height: 130px;
 	width: 300px;
@@ -29,13 +29,18 @@ line{
 	width: 10px;
 	stroke-width: 3px;
 }
+
 #fourthVis {
-	height: 2000px;
+	height: 1500px;
 	writing-mode: vertical-rl;
 	text-orientation: mixed;
 	width: 100%;
-
 }
+
+#fourthVis svg{
+	margin-bottom: -50%;
+}
+
 .tooltip{
 	writing-mode: horizontal-tb;
 	text-orientation: mixed;
@@ -50,6 +55,31 @@ line{
 	z-index: 1;
 	margin-top: -5%;
 	margin-bottom: -5%;
+}
+
+.column {
+	float: left;
+	width: 49%;
+}
+
+.row {
+	width: 100%;
+	margin-bottom: -30%;
+}
+
+#secondVis {
+	margin-left: 10%;
+	margin-right: -10%;
+}
+
+
+#thirdVis {
+	margin-left: 5%;
+	margin-right: -5%;
+}
+
+#fouthVis {
+	margin-top: -30%;
 }
 
 

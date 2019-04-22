@@ -187,8 +187,8 @@
 				var index = parameters[1];
 				
 				var data = [
-				{name: "Home Goals", count: SeasonInfo[index]["home_goals"], color: "#00b300"},
-				{name: "Away Goals", count: SeasonInfo[index]["away_goals"], color: "#0000cc"},];
+				{name: "Home", count: SeasonInfo[index]["home_goals"], color: "#00b300"},
+				{name: "Away", count: SeasonInfo[index]["away_goals"], color: "#0000cc"},];
 				
 				var width = 540, height = 540, radius = 200;
 				
@@ -373,15 +373,17 @@
 			<img id="teamLogo" src="">
 		</div>	
 		
-		<div id="secondVis">
-		<h1>TEST 2</h1>
+		<div id="row">
+			<div id="secondVis" class="column">
+			<h1>TEST 2</h1>
+			</div>
+			
+			<div id="thirdVis" class="column">
+			<h1 style="float: right; margin-right: 45%">TEST 3</h1>
+			</div>
 		</div>
 		
-		<div id="thirdVis">
-		<h1>TEST 3</h1>
-		</div>
-		
-		<div id="fourthVis" style="height: 500px;">
+		<div id="fourthVis" style="margin-bottom: 10%; margin-top: 0%">
 		</div>
 		
 		
