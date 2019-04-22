@@ -22,7 +22,7 @@
 		</style>
 		<script>
 
-			var dataPath = "http://localhost:8888/Desktop/CS5044%20-%20Info%20Vis/P3/Part%202/Data/Premier_League_2017-2018.csv"
+			var dataPath = "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/Data/Premier_League_2017-2018.csv"
 			var uniqueTeams=[];
 			var SeasonInfo=[];
 			var dataGlobal;
@@ -99,13 +99,13 @@
 						.append("a")
 						.attr("xlink:href", function (d,i) {
 							if(i<5)
-								return "http://localhost:8888/Desktop/CS5044%20-%20Info%20Vis/P3/Part%202/team.html?id="+i
+								return "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/team.html?id="+i
 							else if(i>4&&i<=9)
-								return "http://localhost:8888/Desktop/CS5044%20-%20Info%20Vis/P3/Part%202/team.html?id="+parseInt(10-i%5-1)
+								return "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/team.html?id="+parseInt(10-i%5-1)
 							else if(i>9&&i<=14)
-								return "http://localhost:8888/Desktop/CS5044%20-%20Info%20Vis/P3/Part%202/team.html?id="+i
+								return "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/team.html?id="+i
 							else
-								return "http://localhost:8888/Desktop/CS5044%20-%20Info%20Vis/P3/Part%202/team.html?id="+parseInt(20-i%5-1)
+								return "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/team.html?id="+parseInt(20-i%5-1)
 
 						})
 						.append("svg:image")
@@ -113,13 +113,13 @@
 							.attr('height', 80)
 							.attr("xlink:href", function (d,i) {
 								if(i<5)
-									return "http://localhost:8888/Desktop/CS5044%20-%20Info%20Vis/P3/Part%202/Teams/"+i+".png"
+									return "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/Teams/"+i+".png"
 								else if(i>4&&i<=9)
-									return "http://localhost:8888/Desktop/CS5044%20-%20Info%20Vis/P3/Part%202/Teams/"+parseInt(10-i%5-1)+".png"
+									return "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/Teams/"+parseInt(10-i%5-1)+".png"
 								else if(i>9&&i<=14)
-									return "http://localhost:8888/Desktop/CS5044%20-%20Info%20Vis/P3/Part%202/Teams/"+i+".png"
+									return "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/Teams/"+i+".png"
 								else
-									return "http://localhost:8888/Desktop/CS5044%20-%20Info%20Vis/P3/Part%202/Teams/"+parseInt(20-i%5-1)+".png"
+									return "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/Teams/"+parseInt(20-i%5-1)+".png"
 
 							})
 							.attr("width",80)
@@ -196,9 +196,7 @@
 									return parseInt(20-i%5);
 							})
 
-
-
-						//"http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/Teams/1024px-Brighton_%26_Hove_Albion_logo.png"
+				//"http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/Teams/1024px-Brighton_%26_Hove_Albion_logo.png"
 			};
 
 
