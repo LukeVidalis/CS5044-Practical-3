@@ -29,7 +29,7 @@ body {
 }
 
 #nav_bar{
-	position: inline-block;
+	position: fixed;
 	width: 100%;
 	z-index: 1;
 }
@@ -69,8 +69,12 @@ li a {
     text-decoration: none;
 	background-color: black;
 	width: 200px;
+	z-index: 1;
 }
-
+h1{
+	font-family: Impact;
+	padding-left: 10%;
+}
 rect{
 	fill: lightblue;
 	stroke: darkblue;
@@ -83,11 +87,15 @@ line{
 }
 
 #fourthVis {
-	height: 1500px;
+	display: inline;
+	height: 800px;
 	writing-mode: vertical-rl;
 	text-orientation: mixed;
 	width: 100%;
+	position: relative;
+	font-family: "Myriad Pro";
 }
+
 
 #fourthVis svg{
 	margin-bottom: -50%;
@@ -96,6 +104,7 @@ line{
 .tooltip{
 	writing-mode: horizontal-tb;
 	text-orientation: mixed;
+	font-family: "Myriad Pro";
 }
 
 .circleBack {
@@ -111,12 +120,13 @@ line{
 }
 
 .row {
+	display: inline;
 	width: 100%;
 	margin-bottom: -30%;
 }
 
 #secondVis {
-	margin-left: 10%;
+	margin-left: 5%;
 	margin-right: -10%;
 }
 
@@ -129,11 +139,20 @@ line{
 #fouthVis {
 	margin-top: -30%;
 }
+#fourthTitle{
+	position: absolute;
+	display: inline;
+	writing-mode: horizontal-tb;
+	text-orientation: upright;
+	padding-bottom: 50px;
+	top: -900px;
+	left:100px
+}
 
 
 #footer {
-	position: inline;
-	margin-top: -130px;  
+
+	margin-top: -130px;
 	width: 100%;
 	height: 25%;
 	background-color: #ff0066;

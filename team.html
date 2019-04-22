@@ -19,7 +19,7 @@
 		</style>
 		<script>
 
-			var dataPath = "http://localhost:8888/Desktop/Uni/CS5044%20Information%20Visualization%20and%20Visual%20Analytics/Practical%203/Part%202/Data/Premier_League_2017-2018.csv";
+			var dataPath = "http://localhost:8888/Desktop/CS5044%20-%20Info%20Vis/P3/Part%202/Data/Premier_League_2017-2018.csv";
 			var uniqueTeams=[];
 			var SeasonInfo=[];
 			var dataGlobal;
@@ -130,7 +130,7 @@
 				{name: "Draws", count: SeasonInfo[index]["draws"], color: "#0000cc"},
 				{name: "Losses", count: SeasonInfo[index]["losses"], color: "#e60000"},];
 				
-				var width = 540, height = 540, radius = 200;
+				var width = 480, height = 400, radius = 200;
 				
 				var arc = d3.arc()
 					.outerRadius(radius - 10)
@@ -146,7 +146,7 @@
 					.attr("width", width)
 					.attr("height", height)
 					.append("g")
-					.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+					.attr("transform", "translate(" + (width / 2 +20) + "," + height / 2 + ")");
 				
 				var g = svg.selectAll(".arc")
 					.data(pie(data))
@@ -187,10 +187,10 @@
 				var index = parameters[1];
 				
 				var data = [
-				{name: "Home", count: SeasonInfo[index]["home_goals"], color: "#00b300"},
-				{name: "Away", count: SeasonInfo[index]["away_goals"], color: "#0000cc"},];
+				{name: "Home Goals", count: SeasonInfo[index]["home_goals"], color: "#00b300"},
+				{name: "Away Goals", count: SeasonInfo[index]["away_goals"], color: "#0000cc"},];
 				
-				var width = 540, height = 540, radius = 200;
+				var width = 540, height = 400, radius = 200;
 				
 				var arc = d3.arc()
 					.outerRadius(radius - 10)
@@ -206,7 +206,7 @@
 					.attr("width", width)
 					.attr("height", height)
 					.append("g")
-					.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+					.attr("transform", "translate(" + (width / 2+30) + "," + height / 2 + ")");
 				
 				var g = svg.selectAll(".arc")
 					.data(pie(data))
@@ -390,18 +390,25 @@
 		
 		<div id="row">
 			<div id="secondVis" class="column">
-			<h1>TEST 2</h1>
+			<h1>End Season Statistics</h1>
 			</div>
 			
 			<div id="thirdVis" class="column">
-			<h1>TEST 3</h1>
+
+			<h1 style="float: right; margin-right: 45%">Home vs Away Goals</h1>
 			</div>
 		</div>
-		
-		<div id="fourthVis">
+
+
+		<div id="fourthVis" >
+
 		</div>
-		
-		
+		<div style="position: relative;">
+			<div id="fourthTitle" style="position: absolute;">
+				<h1>Goals Scored vs Each Team</h1>
+			</div>
+		</div>
+
 
 		<div id="footer">
 			<a onclick="alert('This has not been implemented')" class="fa fa-facebook"></a>
